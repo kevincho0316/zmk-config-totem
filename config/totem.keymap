@@ -57,6 +57,73 @@
                 , <&macro_tap &kp G &kp I &kp F>
                 ;
         };
+
+        hold_nav: hold_nav {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings
+                = <&macro_press &mo NAV>
+                , <&macro_pause_for_release>
+                , <&macro_release &mo NAV>
+                ;
+        };
+
+        hold_sym: hold_sym {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings
+                = <&macro_press &mo SYM>
+                , <&macro_pause_for_release>
+                , <&macro_release &mo SYM>
+                ;
+        };
+
+        hold_tvp2: hold_tvp2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <0>;
+            bindings
+                = <&macro_press &mo TVP2>
+                , <&macro_pause_for_release>
+                , <&macro_release &mo TVP2>
+                ;
+        };
+    };
+
+    // Layer-taps with the tap key as first param so ZMK Studio can label them.
+    // Usage: &lt_nav TAB TAB (both params = tap key; layer is fixed).
+    behaviors {
+        lt_nav: lt_nav {
+            compatible = "zmk,behavior-hold-tap";
+            display-name = "Nav";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&hold_nav>, <&kp>;
+        };
+
+        lt_sym: lt_sym {
+            compatible = "zmk,behavior-hold-tap";
+            display-name = "Sym";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&hold_sym>, <&kp>;
+        };
+
+        lt_tvp2: lt_tvp2 {
+            compatible = "zmk,behavior-hold-tap";
+            display-name = "TVP2";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&hold_tvp2>, <&kp>;
+        };
     };
 
         keymap {
@@ -82,7 +149,7 @@ label= "BASE"                              ;
                 &kp Q       &kp W       &kp E       &kp R       &kp T           &kp Y       &kp U       &kp I       &kp O       &kp P
                 &mt LGUI A  &mt LALT S  &mt LCTRL D &mt LSHFT F &kp G           &kp H       &mt RSHFT J &mt RCTRL K &mt RALT L  &mt RGUI SEMI
     &kp Q       &kp Z       &kp X       &kp C       &kp V       &kp B           &kp N       &kp M       &kp COMMA   &kp DOT     &kp FSLH    &kp BSLH
-                                        &kp DEL   &lt NAV TAB   &kp SPACE       &kp RET   &lt SYM ESC   &kp BSPC
+                                        &kp DEL   &lt_nav TAB TAB &kp SPACE       &kp RET   &lt_sym ESC ESC &kp BSPC
                         >;
                 };
 
@@ -184,7 +251,7 @@ label= "TVP 1"                             ;
 // ╷           ╷           ╷           ╷           ╷           ╷           ╷   ╷           ╷           ╷           ╷           ╷           ╷           ╷
 
                 &kp TAB     &kp I       &kp LC(LALT) &kp O      &kp LC(F20)     &none       &none       &none       &none       &none
-                &lt TVP2 L  &kp LEFT    &kp LALT    &kp RIGHT   &kp SPACE       &none       &none       &none       &none       &none
+                &lt_tvp2 L L &kp LEFT    &kp LALT    &kp RIGHT   &kp SPACE       &none       &none       &none       &none       &none
     &kp J       &kp LSHFT   &kp LC(C)   &kp BSPC    &kp LC(V)   &kp LC(F19)     &none       &none       &none       &none       &none       &none        
                                         &trans      &kp LC(F14) &kp LC(F13)     &none       &none       &none    
                         >;
